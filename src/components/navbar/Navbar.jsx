@@ -10,7 +10,9 @@ const Navbar = () => {
       <div className={styles.logo}>Jay Liu</div>
       <div className={styles.links}>
         <ThemeToggle/>
-        <Link href=''>Home</Link>
+        <Link href='/' className={styles.link}>Home</Link>
+        <Link href='/' className={styles.link}>About</Link>
+        <Link href='/' className={styles.link}>Contact</Link>
         <AuthLinks/>
       </div>
     </div>

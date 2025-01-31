@@ -1,0 +1,14 @@
+.container {
+    margin-top: 50px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.button {
+    width: 150px;
+    border: none;
+    padding: 16px;
+    background-color: var(--textColor);
+    color: var(--background);
+    cursor: pointer;
+}

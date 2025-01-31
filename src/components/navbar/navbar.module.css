@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 80px;
+    height: 100px;
 }
 
 .logo {
@@ -15,4 +15,14 @@
     align-items: center;
     gap: 1.25rem; 
     font-size: 20px;
+}
+
+@media screen and (max-width: 640px) {
+    .links {
+        justify-content: flex-end;
+    }
+
+    .link {
+        display: none;
+    }
 }

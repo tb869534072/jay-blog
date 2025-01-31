@@ -1,0 +1,31 @@
+.container {
+    margin-bottom: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+
+.imgContainer {
+    height: 350px;
+    position: relative;
+}
+
+.image {
+    object-fit: cover;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.date {
+    color: gray;
+}
+
+.description {
+    font-size: 18px;
+    font-weight: 300;
+    color: var(--softTextColor);
+}

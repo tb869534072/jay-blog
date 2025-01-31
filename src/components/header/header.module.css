@@ -1,0 +1,28 @@
+.container {
+    margin-top: 30px;
+}
+
+.title {
+    font-size: 72px;
+    overflow-x: hidden;
+}
+
+.let {
+    color: crimson;
+}
+
+.us {
+    color: lime;
+}
+
+.start {
+    color: gold;
+}
+
+.the {
+    color: dodgerblue;
+}
+
+.game {
+    color: lime;
+}
