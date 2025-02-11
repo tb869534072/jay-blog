@@ -30,6 +30,12 @@
     cursor: pointer;
 }
 
+.button {
+    font-size: 32px;
+    padding-bottom: 4px;
+    padding-left: 1px;
+}
+
 .addButton {
     border-color: #1a8917;
 }
@@ -45,10 +51,10 @@
 }
 
 .publish {
+    width: 150px;
     border: none;
-    padding: 10px 20px;
+    padding: 10px;
     background-color: black;
     color: white;
     cursor: pointer;
-    border-radius: 5px;
 }

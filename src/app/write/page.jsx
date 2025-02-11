@@ -25,25 +25,28 @@ const WritePage = () => {
       }),
     ],
     content: "",
+    immediatelyRender: false,
   })
 
   return (
     <div className={styles.container}>
       <input type='text' placeholder='Title' className={styles.title} />
       <div className={styles.editor}>
-        <button className={styles.button} onClick={() => setOpen(!open)}>
-          {/* <Image src='plus.png' alt='' width={16} height={16}/> */}
-        </button>
+        {open === false ? (
+          <button className={styles.button} onClick={() => setOpen(!open)}>+</button>
+        ) : (
+          <button className={styles.button} onClick={() => setOpen(!open)}>-</button>
+        )}
         {open && (
           <div className={styles.add}>
             <button className={styles.addButton}>
-              {/* <Image src='plus.png' alt='' width={16} height={16}/> */}
+              <Image src='/image.svg' alt='image' width={24} height={24}/>
             </button>
             <button className={styles.addButton}>
-              {/* <Image src='plus.png' alt='' width={16} height={16}/> */}
+              <Image src='/video.svg' alt='video' width={24} height={24}/>
             </button>
             <button className={styles.addButton}>
-              {/* <Image src='plus.png' alt='' width={16} height={16}/> */}
+              <Image src='/external.svg' alt='external' width={28} height={28}/>
             </button>
           </div>
         )}
