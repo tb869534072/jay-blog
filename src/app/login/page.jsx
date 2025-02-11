@@ -1,11 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import styles from './card.module.css';
+import styles from './loginPage.module.css';
 
-const Card = () => {
+const LoginPage = () => {
   return (
-    <Link href="/" className={styles.container}>
+    <div className={styles.container}>
     <div className={styles.imgContainer}>
     </div>
     <div className={styles.textContainer}>
@@ -13,8 +13,8 @@ const Card = () => {
         <h1>Title</h1>
         <p className={styles.description}>description</p>     
     </div>
-    </Link>
+    </div>
   )
 }
 
-export default Card
+export default LoginPage

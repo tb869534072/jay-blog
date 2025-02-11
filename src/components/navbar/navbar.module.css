@@ -1,13 +1,14 @@
 .container {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     height: 100px;
 }
 
 .logo {
     font-weight: bold;
     font-size: 20px;
+    position: absolute;
+    left: 5rem;
 }
 
 .links {
@@ -15,9 +16,26 @@
     align-items: center;
     gap: 1.25rem; 
     font-size: 20px;
+    position: absolute;
+    right: 5rem;
+}
+
+@media screen and (max-width: 1024px) {
+    .logo {
+        left: 2.5rem;
+    }
+
+    .links {
+        right: 2.5rem;
+    }
 }
 
 @media screen and (max-width: 640px) {
+    .container {
+        padding-left: 2.5rem;
+        padding-right: 2.5rem;
+    }
+
     .links {
         justify-content: flex-end;
     }

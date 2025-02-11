@@ -1,0 +1,54 @@
+.title {
+    width: 100%;
+    padding: 50px 0;
+    font-size: 64px;
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.title::placeholder {
+    color: #b3b3b1;
+}
+
+.editor {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    height: 700px;
+}
+
+.button, .addButton {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: transparent;
+    border: 1px solid var(--textColor);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.addButton {
+    border-color: #1a8917;
+}
+
+.add {
+    display: flex;
+    gap: 20px;
+    background-color: var(--background);
+}
+
+.textArea {
+    width: 100%;
+}
+
+.publish {
+    border: none;
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 5px;
+}
