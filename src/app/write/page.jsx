@@ -6,8 +6,14 @@ import styles from './writePage.module.css';
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
 
 const WritePage = () => {
+
+  const { status } = useSession();
+
+  const router = useRouter();
 
   const [open, setOpen] = useState(false);
   const [editorLoaded, setEditorLoaded] = useState(false);
@@ -15,6 +21,16 @@ const WritePage = () => {
   useEffect(() => {
     setEditorLoaded(true);
   }, []);
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      router.push("/");
+    }
+  }, [status, router]);
+
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>
+  }
 
   const editor = useEditor({
     extensions: [
