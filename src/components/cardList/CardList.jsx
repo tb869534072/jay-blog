@@ -15,7 +15,7 @@ async function getData(page) {
   return res.json();
 };
 
-export default async function CardList({ page }) {
+async function CardList({ page }) {
   const data = await getData(page);
 
   return (
@@ -25,7 +25,9 @@ export default async function CardList({ page }) {
           <Card item={item} key={item._id || item.id}/>
         ))}
       </div>
-      <Pagination/>
+      <Pagination page={page}/>
     </div>
   )
 }
+
+export default CardList
