@@ -14,9 +14,11 @@ export const GET = async(req) => {
           take: POST_PER_PAGE,
           skip: POST_PER_PAGE * (page - 1),
         });
-        return new NextResponse(JSON.stringify(posts, { status: 200 }));
+        const response = new NextResponse(JSON.stringify(posts), { status: 200 });
+        response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30");
+        return response;
     } catch (err) {
         console.log(err);
-        return new NextResponse(JSON.stringify({ message: "Something went wrong"}, { status: 500 }));
+        return new NextResponse(JSON.stringify({ message: "Something went wrong"}), { status: 500 });
     }
 }

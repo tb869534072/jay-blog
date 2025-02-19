@@ -3,9 +3,9 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './card.module.css';
 
-const Card = ({item, key}) => {
+const Card = ({item}) => {
   return (
-    <div className={styles.container} key={key}>
+    <div className={styles.container}>
       <Link href="/">
         <div className={styles.imgContainer}>
         </div>
