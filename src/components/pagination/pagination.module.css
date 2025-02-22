@@ -11,4 +11,16 @@
     background-color: var(--textColor);
     color: var(--background);
     cursor: pointer;
+    font-weight: bold;
+}
+
+.button:hover {
+    text-decoration: underline;
+}
+
+.button:disabled {
+    background-color: var(--background);
+    color: var(--textColor);
+    border: solid var(--textColor);
+    cursor: text;
 }

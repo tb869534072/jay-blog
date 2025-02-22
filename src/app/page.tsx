@@ -2,8 +2,8 @@ import styles from "./homepage.module.css";
 import Header from "@/components/header/Header";
 import CardList from "@/components/cardList/CardList";
 
-export default function Home({ searchParams }: { searchParams: { page: string | undefined } }) {
-  console.log('searchparams', searchParams.page);
+export default async function Home(props: { searchParams: Promise<{ page: string | undefined }> }) {
+  const searchParams = await props.searchParams;
   const page = searchParams?.page ? parseInt(searchParams.page) : 1;
 
 
