@@ -23,3 +23,25 @@ export const GET = async(req) => {
         return new NextResponse(JSON.stringify({ message: "Something went wrong"}), { status: 500 });
     }
 }
+
+//CREATE A NEW POST
+export const POST = async(req) => {
+    const session = await getAuthSession();
+  
+    if (!session) {
+      return new NextResponse(JSON.stringify({ message: "You are not authenticated!"}), { status: 401 });
+    }
+  
+    try {
+      const body = await req.json();
+      const comment = await prisma.post.create({
+        data: { ...body, userEmail: session.user.email },
+      });
+      const response = new NextResponse(JSON.stringify(post), { status: 200 });
+      response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30");
+      return response;
+    } catch (err) {
+      console.log(err);
+      return new NextResponse(JSON.stringify({ message: "Something went wrong"}), { status: 500 });
+    }
+  }

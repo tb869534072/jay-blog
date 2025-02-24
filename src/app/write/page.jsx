@@ -10,11 +10,9 @@ import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 
 const WritePage = () => {
-
   const { status } = useSession();
-
   const router = useRouter();
-
+  const [file, setFile] = useState(null);
   const [open, setOpen] = useState(false);
   const [editorLoaded, setEditorLoaded] = useState(false);
 
@@ -23,14 +21,10 @@ const WritePage = () => {
   }, []);
 
   useEffect(() => {
-    if (status === "authenticated") {
+    if (status !== "authenticated") {
       router.push("/");
     }
   }, [status, router]);
-
-  if (status === "loading") {
-    return <div className={styles.loading}>Loading...</div>
-  }
 
   const editor = useEditor({
     extensions: [
@@ -44,6 +38,10 @@ const WritePage = () => {
     immediatelyRender: false,
   })
 
+  if (status === "loading") {
+    return <div className={styles.loading}>Loading...</div>
+  }
+
   return (
     <div className={styles.container}>
       <input type='text' placeholder='Title' className={styles.title} />
@@ -55,8 +53,16 @@ const WritePage = () => {
         )}
         {open && (
           <div className={styles.add}>
+            <input 
+              type="file"
+              id="image" 
+              onChange={(e) => setFile(e.target.files[0])}
+              style={{ display: "none"}}
+            />
             <button className={styles.addButton}>
-              <Image src='/image.svg' alt='image' width={24} height={24}/>
+              <label htmlFor='image'>
+                <Image src='/image.svg' alt='image' width={24} height={24}/>
+              </label>
             </button>
             <button className={styles.addButton}>
               <Image src='/video.svg' alt='video' width={24} height={24}/>

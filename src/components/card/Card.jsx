@@ -13,11 +13,32 @@ const Card = ({item}) => {
     <Link href={`/posts/${item.slug}`} className={styles.container}>
       <div className={styles.imgContainer}>
         {item.img ? (
-          <Image src={item.img} alt="" fill className={styles.image} />
+          <Image 
+          src={item.img}
+          alt="" 
+          fill 
+          className={styles.image}
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px" 
+          priority
+        />
         ): ((theme === "light") ? (
-          <Image src="/daytime.jpg" alt="" fill className={styles.image} />
+          <Image 
+            src="/daytime.jpg"
+            alt="" 
+            fill 
+            className={styles.image}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px" 
+            priority
+          />
         ): (
-          <Image src="/night.jpg" alt="" fill className={styles.image} />
+          <Image 
+            src="/night.jpg"
+            alt="" 
+            fill 
+            className={styles.image}
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px" 
+            priority
+          />
         )
         )}
       </div>

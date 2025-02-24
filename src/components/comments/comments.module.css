@@ -45,7 +45,8 @@
     margin-bottom: 20px;
 }
 
-.image {
+.icon {
+    position: relative !important;
     border-radius: 50%;
     object-fit: cover;
 }
@@ -65,7 +66,7 @@
     font-size: 14px;
 }
 
-.content {
+.description {
     font-size: 18px;
     font-weight: 300;
 }

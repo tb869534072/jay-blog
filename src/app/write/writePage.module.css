@@ -53,8 +53,9 @@
 .publish {
     width: 150px;
     border: none;
-    padding: 10px;
-    background-color: black;
-    color: white;
+    padding: 15px;
+    background-color: var(--textColor);
+    color: var(--background);
     cursor: pointer;
+    font-weight: bold;
 }

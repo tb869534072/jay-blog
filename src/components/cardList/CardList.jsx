@@ -15,7 +15,7 @@ const getData = async(page) => {
   return res.json();
 };
 
-async function CardList({ page }) {
+const CardList = async({ page }) => {
   const { posts, count } = await getData(page);
 
   const POST_PER_PAGE = 4;
