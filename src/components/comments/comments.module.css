@@ -10,7 +10,6 @@
 .write {
     display: flex;
     align-items: center;
-    justify-content: space-between;
     gap: 30px;
 }
 
@@ -22,7 +21,8 @@
 }
 
 .button {
-    padding: 16px 20px;
+    width: 150px;
+    padding: 16px 0;
     background-color: var(--textColor);
     color: var(--background);
     font-weight: bold;
@@ -32,11 +32,10 @@
 }
 
 .comments {
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
     margin-top: 50px;
-}
-
-.comment {
-    margin-bottom: 50px;
 }
 
 .user {
@@ -46,8 +45,13 @@
     margin-bottom: 20px;
 }
 
+.userIconContainer {
+    width: 50px;
+    height: 50px;
+    position: relative;
+}
+
 .icon {
-    position: relative !important;
     border-radius: 50%;
     object-fit: cover;
 }

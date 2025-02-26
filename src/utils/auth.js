@@ -16,11 +16,16 @@ export const authOptions = {
       clientSecret: process.env.GITHUB_SECRET,
     }),
   ],
+  session: {
+    strategy: "jwt",
+    maxAge: 30 * 60,
+  },
   callbacks: {
     async session({ session, token, user }) {
       if (token) {
         session.user.id = token.sub;
       }
+      session.expires = token.exp;
       return session;
     },
     async jwt({ token, user, account, profile }) {
@@ -30,7 +35,6 @@ export const authOptions = {
       return token;
     },
   },
-  debug: true,
 }
 
 export const getAuthSession = () => getServerSession(authOptions);

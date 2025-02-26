@@ -71,7 +71,7 @@ const Comments = ({ postSlug }) => {
           : data?.map((item) => (
               <div className={styles.comment} key={item._id || item.id}>
                 <div className={styles.user}>
-                  <div className={styles.icon}>
+                  <div className={styles.userIconContainer}>
                     {item.user.image ? (
                       <Image
                         src={item.user.image} 
@@ -86,7 +86,7 @@ const Comments = ({ postSlug }) => {
                         alt="" 
                         fill 
                         className={styles.icon} 
-                        sizes="(max-width: 128px) 100vw, (max-width: 128px) 50vw, 50vw"
+                        sizes="(max-width: 128px) 100vw, (max-width: 128px) 50vw, 33vw"
                       />
                     )}
                   </div>
