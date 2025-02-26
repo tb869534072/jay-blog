@@ -6,7 +6,6 @@ import Image from 'next/image';
 import styles from './comments.module.css';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
-import { useRouter } from 'next/navigation';
 
 const fetcher = async(url) => {
   const res = await fetch(url);
@@ -19,7 +18,6 @@ const fetcher = async(url) => {
 
 const Comments = ({ postSlug }) => {
   const { status } = useSession();
-  const router = useRouter();
 
   const { data, isLoading, mutate } = useSWR(
     `http://localhost:3000/api/comments?postSlug=${postSlug}`,
@@ -27,9 +25,12 @@ const Comments = ({ postSlug }) => {
   );
 
   const [description, setDescription] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async() => {
     if (!description.trim()) return;
+    if (isSubmitting) return;
+    setIsSubmitting(true);
   
     await fetch("/api/comments", {
       method: "POST",
@@ -52,7 +53,13 @@ const Comments = ({ postSlug }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
           />
-          <button className={styles.button} onClick={handleSubmit}>Send</button>
+          <button 
+            className={styles.button} 
+            onClick={handleSubmit}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Sending..." : "Send"}
+          </button>
         </div>
         ) : (
           <Link href="/login">Login to write a comment</Link>
@@ -60,7 +67,7 @@ const Comments = ({ postSlug }) => {
       }
       <div className={styles.comments}>
         {isLoading 
-          ? <p>isLoading</p>
+          ? "isLoading"
           : data?.map((item) => (
               <div className={styles.comment} key={item._id || item.id}>
                 <div className={styles.user}>

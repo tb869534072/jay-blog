@@ -18,12 +18,13 @@
     padding: 20px;
     width: 100%;
     border: 2px solid #ccc;
+    color: black;
 }
 
 .button {
     padding: 16px 20px;
-    background-color: black;
-    color: white;
+    background-color: var(--textColor);
+    color: var(--background);
     font-weight: bold;
     border: none;
     border-radius: 5px;

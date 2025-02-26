@@ -18,6 +18,7 @@ const WritePage = () => {
   const [editorLoaded, setEditorLoaded] = useState(false);
   const [title, setTitle] = useState("");
   const [file, setFile] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   useEffect(() => {
     setEditorLoaded(true);
@@ -48,7 +49,7 @@ const WritePage = () => {
   };
 
   const slugify = (string) => {
-    return string
+    return Date.now() + string
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
@@ -56,7 +57,24 @@ const WritePage = () => {
       .replace(/^-+|-+$/g, "");
   };
 
+  const cleanHtml = (html) => {
+    if (typeof window === "undefined") return html;
+  
+    const doc = new DOMParser().parseFromString(html, "text/html");
+    doc.body.querySelectorAll("p").forEach((p) => {
+      if (p.childNodes.length === 1 && p.childNodes[0].nodeType === 3) {
+        const textWithBreak = document.createTextNode(p.textContent + "\n");
+        p.replaceWith(textWithBreak);
+      }
+    });
+  
+    return doc.body.innerHTML.replace(/\n/g, "<br>").trim();
+  };
+
   const handleSubmit = async() => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
+    
     let mediaUrl = null;
 
     if (file) {
@@ -64,13 +82,14 @@ const WritePage = () => {
       const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
       if (error) {
         console.error("Upload error:", error.message);
-        setUploading(false);
+        setIsSubmitting(false);
         return;
       }
       mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
     }
 
-    const description = editor?.getHTML().slice(3, -4) || "";
+    const rawDescription = editor?.getHTML() || "";
+    const description = cleanHtml(rawDescription);
     await fetch("/api/posts", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -132,7 +151,13 @@ const WritePage = () => {
           <p>Loading editor...</p>
         )}
       </div>
-      <button className={styles.publish} onClick={handleSubmit}>Publish</button>
+      <button 
+        className={styles.publish} 
+        onClick={handleSubmit}
+        disabled={isSubmitting}
+      >
+        {isSubmitting ? "Publishing..." : "Publish"}
+      </button>
     </div>
   )
 }

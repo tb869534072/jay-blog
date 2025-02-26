@@ -8,6 +8,11 @@ import { ThemeContext } from '@/context/ThemeContext';
 
 const Card = ({item}) => {
   const { theme } = useContext(ThemeContext);
+  
+  const getFirstSentence = (text) => {
+    const match = text.match(/^(.*?)([.!?]<br>?|\n|<br>)/i);
+    return match ? match[0].trim() : text;
+  };
 
   return (
     <Link href={`/posts/${item.slug}`} className={styles.container}>
@@ -46,7 +51,9 @@ const Card = ({item}) => {
       <div className={styles.textContainer}>
         <span className={styles.date}>{item.createdAt.slice(0, 10)}</span>
         <h1>{item.title}</h1>
-        <p className={styles.description}>{item.description.slice(0, 60)}...</p>     
+        <p 
+          className={styles.description}
+          dangerouslySetInnerHTML={{ __html: getFirstSentence(item.description)}}></p>     
       </div>
     </Link>
   )
