@@ -10,7 +10,18 @@ export const GET = async (req, props) => {
         where: { slug },
         include: { user: true },
       });
-      const response = new NextResponse(JSON.stringify(post), { status: 200 });
+
+      const prevPost = await prisma.post.findFirst({
+        where: { createdAt: { gt: post.createdAt } },
+        orderBy: { createdAt: "asc" },
+      });
+
+      const nextPost = await prisma.post.findFirst({
+        where: { createdAt: { lt: post.createdAt } },
+        orderBy: { createdAt: "desc" },
+      });
+
+      const response = new NextResponse(JSON.stringify({ post, prevPost, nextPost }), { status: 200 });
       response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30");
       return response;
     } catch (err) {

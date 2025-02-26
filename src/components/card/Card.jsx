@@ -19,6 +19,7 @@ const Card = ({item}) => {
           fill 
           className={styles.image}
           sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 800px" 
+          unoptimized={true}
           priority
         />
         ): ((theme === "light") ? (
@@ -45,7 +46,7 @@ const Card = ({item}) => {
       <div className={styles.textContainer}>
         <span className={styles.date}>{item.createdAt.slice(0, 10)}</span>
         <h1>{item.title}</h1>
-        <p className={styles.description}>{item.description.slice(0, 60)}</p>     
+        <p className={styles.description}>{item.description.slice(0, 60)}...</p>     
       </div>
     </Link>
   )

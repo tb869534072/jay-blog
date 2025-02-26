@@ -14,7 +14,7 @@ const Pagination = ({ slug, page, hasPrev, hasNext }) => {
         disabled={!hasPrev}
         onClick={()=>
           slug ? (
-            router.push(`/posts/${parseInt(slug) - 1}`)
+            router.push(`/posts/${hasPrev.slug}`)
           ): (
             router.push(`?page=${page - 1}`)
         )}
@@ -26,7 +26,7 @@ const Pagination = ({ slug, page, hasPrev, hasNext }) => {
         disabled={!hasNext}
         onClick={()=>
           slug ? (
-            router.push(`/posts/${parseInt(slug) + 1}`)
+            router.push(`/posts/${hasNext.slug}`)
           ): (
             router.push(`?page=${page + 1}`)
         )}

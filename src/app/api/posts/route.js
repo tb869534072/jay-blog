@@ -1,5 +1,6 @@
 import prisma from "@/utils/connect";
 import { NextResponse } from "next/server";
+import { getAuthSession } from "../../../utils/auth";
 
 export const GET = async(req) => {
     const {searchParams} = new URL(req.url);
@@ -8,6 +9,7 @@ export const GET = async(req) => {
     const query = {
         take: POST_PER_PAGE,
         skip: POST_PER_PAGE * (page - 1),
+        orderBy: { createdAt: "desc" },
     }
 
     try {
@@ -15,7 +17,7 @@ export const GET = async(req) => {
           prisma.post.findMany(query),
           prisma.post.count(),
         ]);
-        const response = new NextResponse(JSON.stringify({ posts, count}), { status: 200 });
+        const response = new NextResponse(JSON.stringify({ posts, count }), { status: 200 });
         response.headers.set("Cache-Control", "public, s-maxage=60, stale-while-revalidate=30");
         return response;
     } catch (err) {
@@ -34,7 +36,7 @@ export const POST = async(req) => {
   
     try {
       const body = await req.json();
-      const comment = await prisma.post.create({
+      const post = await prisma.post.create({
         data: { ...body, userEmail: session.user.email },
       });
       const response = new NextResponse(JSON.stringify(post), { status: 200 });

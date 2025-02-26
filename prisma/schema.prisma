@@ -77,7 +77,6 @@ model Post {
   title       String
   description String
   img         String?
-  views       Int       @default(0)
   userEmail   String
   user        User      @relation(fields: [userEmail], references: [email])
   comments    Comment[]
