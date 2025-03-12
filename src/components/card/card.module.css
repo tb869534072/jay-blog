@@ -1,8 +1,16 @@
 .container {
-    margin-bottom: 50px;
     display: flex;
     flex-direction: column;
     gap: 50px;
+    margin-bottom: 65px;
+    box-shadow: 0 0 0 transparent;
+    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 1%;
+}
+
+.container:hover {
+    text-decoration: none;
+    box-shadow: 0 0 5px var(--softTextColor);
 }
 
 .imgContainer {
@@ -14,14 +22,21 @@
     object-fit: cover;
 }
 
-.textContainer {
+.infoContainer {
     display: flex;
     flex-direction: column;
     gap: 30px;
+    padding: 0 20px 20px 20px;
 }
 
 .date {
     color: gray;
+}
+
+.textContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .description {

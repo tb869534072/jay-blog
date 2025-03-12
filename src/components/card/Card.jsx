@@ -48,12 +48,15 @@ const Card = ({item}) => {
         )
         )}
       </div>
-      <div className={styles.textContainer}>
-        <span className={styles.date}>{item.createdAt.slice(0, 10)}</span>
-        <h1>{item.title}</h1>
-        <p 
-          className={styles.description}
-          dangerouslySetInnerHTML={{ __html: getFirstSentence(item.description)}}></p>     
+      <div className={styles.infoContainer}>
+        <div className={styles.date}>{item.createdAt.slice(0, 10)}</div>
+        <div className={styles.textContainer}>
+          <h1>{item.title}</h1>
+          <p 
+            className={styles.description}
+            dangerouslySetInnerHTML={{ __html: getFirstSentence(item.description)}}>
+          </p>
+        </div>
       </div>
     </Link>
   )
