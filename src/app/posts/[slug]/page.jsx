@@ -24,8 +24,9 @@ const SinglePost = async props => {
   return (
     <div className={styles.container}>
       <div className={styles.postContainer}>
-        <div className={styles.infoContainer}>
+        <div className={styles.titleContainer}>
           <h1 className={styles.title}>{post?.title}</h1>
+          </div>
           <div className={styles.user}>
             <div className={styles.userIconContainer}>
               {post?.user.image ? (
@@ -51,7 +52,7 @@ const SinglePost = async props => {
               <span className={styles.date}>{post?.createdAt.slice(0, 10)}</span>
             </div>
           </div>
-        </div>
+
         {post?.img && (
           <div className={styles.imageContainer}>
             <Image src={post.img} alt="" fill className={styles.image} priority/>
