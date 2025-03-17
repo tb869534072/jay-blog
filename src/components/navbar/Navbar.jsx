@@ -6,16 +6,16 @@ import AuthLinks from '@/components/authLinks/AuthLinks';
 
 const Navbar = () => {
   return (
-    <div className={styles.container}>
+    <nav className={styles.container}>
       <div className={styles.logo}>Jay Liu</div>
       <div className={styles.links}>
         <ThemeToggle/>
         <Link href='/' className={styles.link}>Home</Link>
         <Link href='/about' className={styles.link}>About</Link>
-        <Link href='/' className={styles.link}>Contact</Link>
+        <Link href='/contact' className={styles.link}>Contact</Link>
         <AuthLinks/>
       </div>
-    </div>
+    </nav>
   )
 }
 

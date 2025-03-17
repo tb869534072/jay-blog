@@ -12,14 +12,14 @@ const Footer = () => {
           </h1>
         </div>
         <p className={styles.description}>
-          Let us start the game.
+          jaylzq777@gmail.com
         </p>
       </div>
       <div className={styles.links}>
         <span className={styles.linksTitle}>Links</span>
         <Link href="/">Home</Link>
-        <Link href="/">About</Link>
-        <Link href="/">Contact</Link>
+        <Link href="/about">About</Link>
+        <Link href="/contact">Contact</Link>
       </div>
     </div>
   )

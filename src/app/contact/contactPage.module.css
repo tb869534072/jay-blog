@@ -1,0 +1,78 @@
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    min-height: 60vh;
+    font-size: 20px;
+}
+
+.infoContainer, .formContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 24px;
+}
+
+.input {
+    padding: 10px;
+    outline: none;
+    border-bottom: 2px solid var(--textColor);
+    background-color: var(--background);
+}
+
+.message {
+    padding: 10px;
+    width: 283px;
+    border: 2px solid var(--textColor);
+    background-color: var(--background);
+    border-radius: 5px;
+    height: 200px;
+    overflow-y: auto;
+    resize: vertical;
+    line-height: 1.4;
+    outline: none;
+}
+
+.button {
+    background-color: var(--textColor);
+    color: var(--background);
+    padding: 10px 120px;
+    border-radius: 9999px;
+    font-weight: bold;
+}
+
+.button:disabled {
+    background: gray;
+    cursor: not-allowed;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    width: 1px;
+    height: 50%;
+    background: var(--textColor);
+}
+
+@media (min-width: 768px) {
+    .infoContainer, .formContainer {
+        flex: 1;
+    }
+}
+
+@media (max-width: 768px) {
+    .container {
+      flex-direction: column;
+      gap: 50px;
+    }
+  
+    .container::before {
+      display: none;
+    }
+}

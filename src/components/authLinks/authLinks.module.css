@@ -2,23 +2,57 @@
     cursor: pointer;
 }
 
-.burger {
-    width:20px;
-    height: 16px;
+.burgerContainer {
+    width: 30px;
+    height: 30px;
+    position: relative;
+    cursor: pointer;
     display: none;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease-out;
+}
+
+.flipped {
+    transform: rotateY(180deg);
+}
+
+.burger {
+    width: 20px;
+    height: 16px;
+    display: flex;
     flex-direction: column;
     justify-content: space-between;
-    cursor: pointer;
+    position: absolute;
+    transition: opacity 0.3s ease-out;
 }
 
 .line {
     width: 100%;
     height: 2px;
     background-color: var(--textColor);
+    transition: transform 0.3s ease-out, opacity 0.3s ease-out;
+}
+
+.closeMenu {
+    font-size: 24px;
+    position: absolute;
+    opacity: 0;
+    transform: rotateY(180deg);
+    transition: opacity 0.3s ease-out, transform 0.3s ease-out;
+}
+
+.flipped .burger {
+    opacity: 0;
+}
+
+.flipped .closeMenu {
+    opacity: 1;
+    transform: rotateY(0);
 }
 
 .responsiveMenu {
-    position: absolute;
+    position: fixed;
     top: 100px;
     left: 0;
     background-color: var(--background);
@@ -29,11 +63,31 @@
     align-items: center;
     justify-content: center;
     gap: 50px;
+    z-index: 1000;
     font-size: 36px;
+
+    transform: translateY(200%);
+    opacity: 0;
+    transition: transform 0.4s ease-out, opacity 0.3s ease-out;
+}
+
+.open {
+    transform: translateY(0);
+    opacity: 1;
+}
+
+.open a {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.signOut:hover {
+    cursor: pointer;
+    text-decoration: underline;
 }
 
 @media screen and (max-width: 640px) {
-    .burger {
+    .burgerContainer {
         display: flex;
     }
     .link {

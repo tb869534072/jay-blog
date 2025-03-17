@@ -25,3 +25,9 @@
 .game {
     color: lime;
 }
+
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 48px;
+    }
+}

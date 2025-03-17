@@ -2,7 +2,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 60px;
+    min-height: 60vh;
 }
 
 .wrapper {
@@ -15,8 +15,8 @@
 }
 
 .socialButton {
-    padding: 20px;
-    border-radius: 5px;
+    padding: 20px 40px;
+    border-radius: 9999px;
     border: none;
     color: white;
     font-weight: bold;
