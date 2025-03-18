@@ -46,7 +46,7 @@ const ContactPage = () => {
           required
         />
         <input
-          type="text"
+          type="email"
           name="email"
           placeholder="Your email"
           value={formData.email}
@@ -55,15 +55,14 @@ const ContactPage = () => {
           required
         />
         <textarea
-          type="text"
           name="message"
           placeholder="Your message"
           value={formData.message}
           onChange={handleChange}
           className={styles.message}
           required
-        />
-        <button type="button" disabled={status === "Sending..."} className={styles.button}>Send</button>
+        ></textarea>
+        <button type="submit" disabled={status === "Sending..."} className={styles.button}>Send</button>
         {status && <p className={styles.statusMessage}>{status}</p>}
       </form>
     </div>
