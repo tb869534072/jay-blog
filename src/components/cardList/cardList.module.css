@@ -1,8 +1,16 @@
-@media screen and (min-width: 1024px) {
+.posts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-column-gap: 30px;
+    grid-row-gap: 100px;
+    grid-auto-rows: min-content;
+}
+
+
+@media screen and (max-width: 1024px) {
     .posts {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-        grid-column-gap: 30px;
-        grid-auto-rows: min-content;
+        display: flex;
+        flex-direction: column;
+        gap: 65px;
     }
 }

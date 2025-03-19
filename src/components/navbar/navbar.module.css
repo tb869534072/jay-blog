@@ -9,36 +9,32 @@
     font-weight: bold;
     font-size: 20px;
     position: absolute;
-    left: 5rem;
+    left: 80px;
 }
 
 .links {
     display: flex;
     align-items: center;
-    gap: 1.25rem; 
+    gap: 18px; 
     font-size: 20px;
     position: absolute;
-    right: 5rem;
+    right: 80px;
 }
 
 @media screen and (max-width: 1024px) {
     .logo {
-        left: 2.5rem;
+        left: 40px;
     }
 
     .links {
-        right: 2.5rem;
+        right: 40px;
     }
 }
 
 @media screen and (max-width: 640px) {
-    .container {
-        padding-left: 2.5rem;
-        padding-right: 2.5rem;
-    }
-
-    .links {
-        justify-content: flex-end;
+    .logo {
+        left: 50%;
+        transform: translateX(-50%);
     }
 
     .link {

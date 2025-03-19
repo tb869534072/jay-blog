@@ -5,17 +5,24 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './card.module.css';
 import { ThemeContext } from '@/context/ThemeContext';
+import useScrollFade from "@/utils/hook";
 
 const Card = ({item}) => {
   const { theme } = useContext(ThemeContext);
+  const { ref, isVisible } = useScrollFade();
   
   const getFirstSentence = (text) => {
+    if (!text) return "";
     const match = text.match(/^(.*?)([.!?]<br>?|\n|<br>)/i);
     return match ? match[0].trim() : text;
   };
 
   return (
-    <Link href={`/posts/${item.slug}`} className={styles.container}>
+    <Link 
+      href={`/posts/${item.slug}`} 
+      className={`${styles.container} ${isVisible ? styles.visible : ""}`}
+      ref={ref}
+    >
       <div className={styles.imgContainer}>
         {item.img ? (
           <Image 

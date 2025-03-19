@@ -2,6 +2,17 @@
     cursor: pointer;
 }
 
+.write {
+    padding: 8px 20px;
+    background-color: var(--textColor);
+    color: var(--background);
+    border-radius: 5px;
+}
+
+.write:hover {
+    text-decoration: none;
+}
+
 .burgerContainer {
     width: 30px;
     height: 30px;
@@ -80,7 +91,6 @@
 }
 
 .signOut:hover {
-    cursor: pointer;
     text-decoration: underline;
 }
 
@@ -88,7 +98,12 @@
     .burgerContainer {
         display: flex;
     }
+
     .link {
+        display: none;
+    }
+
+    .write {
         display: none;
     }
 }

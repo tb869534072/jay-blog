@@ -115,6 +115,7 @@ const WritePage = () => {
         placeholder='Title' 
         className={styles.title} 
         onChange={(e) => setTitle(e.target.value)}
+        required
       />
       <div className={styles.editor}>
         <button className={styles.button} onClick={() => setOpen(!open)}>
@@ -132,9 +133,6 @@ const WritePage = () => {
               <label htmlFor='image'>
                 <Image src='/image.svg' alt='image' width={24} height={24}/>
               </label>
-            </button>
-            <button className={styles.addButton}>
-              <Image src='/video.svg' alt='video' width={24} height={24}/>
             </button>
             <button className={styles.addButton}>
               <Image src='/external.svg' alt='external' width={28} height={28}/>

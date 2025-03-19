@@ -12,7 +12,7 @@ const Footer = () => {
           </h1>
         </div>
         <p className={styles.description}>
-          jaylzq777@gmail.com
+          Let us start the game.
         </p>
       </div>
       <div className={styles.links}>
