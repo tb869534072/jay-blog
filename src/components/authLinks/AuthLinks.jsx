@@ -16,6 +16,17 @@ const AuthLinks = () => {
       document.body.classList.remove("no-scroll");
     }
   }, [open]);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(min-width: 641px)");
+    const handleResize = () => {
+      if (mediaQuery.matches) {
+        setOpen(false);
+      }
+    };
+    mediaQuery.addEventListener("change", handleResize);
+    return () => mediaQuery.removeEventListener("change", handleResize);
+  }, []);
   
   return (
     <>

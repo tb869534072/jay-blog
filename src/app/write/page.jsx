@@ -118,28 +118,26 @@ const WritePage = () => {
         required
       />
       <div className={styles.editor}>
-        <button className={styles.button} onClick={() => setOpen(!open)}>
-          {open ? "-" : "+"}
-        </button>
-        {open && (
-          <div className={styles.add}>
-            <input 
-              type="file"
-              id="image" 
-              onChange={handleFileChange}
-              style={{ display: "none"}}
-            />
-            <button className={styles.addButton}>
-              <label htmlFor='image'>
-                <Image src='/image.svg' alt='image' width={24} height={24}/>
-              </label>
-            </button>
-            <button className={styles.addButton}>
-              <Image src='/external.svg' alt='external' width={28} height={28}/>
-            </button>
-            <div>{file?.name}</div>
-          </div>
-        )}
+        <div className={styles.buttons}>
+          <button className={styles.expandButton} onClick={() => setOpen(!open)}>
+            {open ? "➖" : "➕"}
+          </button>
+          <input 
+            type="file"
+            id="image" 
+            onChange={handleFileChange}
+            style={{ display: "none"}}
+          />
+          <button className={`${styles.addButton} ${open ? styles.isVisible : ""}`}>
+            <label htmlFor='image'>
+              <Image src='/image.svg' alt='image' width={24} height={24}/>
+            </label>
+          </button>
+          <button className={`${styles.addButton} ${open ? styles.isVisible : ""}`}>
+            <Image src='/external.svg' alt='external' width={28} height={28}/>
+          </button>
+          <div>{file?.name}</div>
+        </div>
         {editorLoaded ? (
           <EditorContent 
             editor={editor} 
