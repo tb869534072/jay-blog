@@ -1,38 +1,42 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import styles from './singlePost.module.css';
 import Image from 'next/image';
 import Pagination from "@/components/pagination/Pagination";
 import Comments from "@/components/comments/Comments";
+import { getPostData } from "@/lib/posts";
+import { notFound } from 'next/navigation';
 
-const getData = async(slug) => {
-  const res = await fetch(`http://localhost:3000/api/posts/${slug}`, {
-    cache: 'no-store',
-  });
+export async function generateMetadata(props) {
+  const { slug } = await props.params;
+  const { post } = await getPostData(slug);
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch posts");
+  return {
+    title: "GamerBlog | " + (post.title || "Post"),
+    description: post.description.slice(0, 150) || "Read a blog post.",
+  };
+}
+
+const SinglePost = async (props) => {
+  const { slug } = await props.params;
+  const { post, prevPost, nextPost } = await getPostData(slug);
+  const formatDate = (date) => new Date(date).toLocaleDateString();
+
+  if (!post) {
+    notFound();
   }
-  
-  return res.json();
-};
-
-const SinglePost = async props => {
-  const params = await props.params;
-  const { slug } = params;
-  const { post, prevPost, nextPost } = await getData(slug);
 
   return (
     <div className={styles.container}>
       <div className={styles.postContainer}>
         <div className={styles.titleContainer}>
-          <h1 className={styles.title}>{post?.title}</h1>
+          <h1 className={styles.title}>{post.title}</h1>
           </div>
           <div className={styles.user}>
             <div className={styles.userIconContainer}>
-              {post?.user.image ? (
+              {post.user.image ? (
                 <Image
                   src={post.user.image} 
-                  alt="" 
+                  alt="User icon" 
                   fill 
                   className={styles.icon} 
                   sizes="(max-width: 128px) 100vw, (max-width: 128px) 50vw, 33vw"
@@ -40,7 +44,7 @@ const SinglePost = async props => {
                 ): (
                 <Image
                   src="/icon.png"
-                  alt="" 
+                  alt="User icon" 
                   fill 
                   className={styles.icon} 
                   sizes="(max-width: 128px) 100vw, (max-width: 128px) 50vw, 33vw"
@@ -48,22 +52,30 @@ const SinglePost = async props => {
               )}
             </div>
             <div className={styles.userTextContainer}>
-              <span className={styles.username}>{post?.user.name}</span>
-              <span className={styles.date}>{post?.createdAt.slice(0, 10)}</span>
+              <span className={styles.username}>{post.user.name}</span>
+              <span>{formatDate(post.createdAt)}</span>
             </div>
           </div>
 
-        {post?.img && (
+        {post.img && (
           <div className={styles.imageContainer}>
-            <Image src={post.img} alt="" fill className={styles.image} priority/>
+            <Image 
+              src={post.img}
+              alt={`Image for post titled "${post.title}"`}
+              fill 
+              className={styles.image} 
+              priority
+            />
           </div>
         )}
-        <div className={styles.content} dangerouslySetInnerHTML={{__html: post?.description}}/>
+        <div className={styles.content} dangerouslySetInnerHTML={{__html: post.description}}/>
       </div>
-      <Pagination slug={slug} hasPrev={prevPost} hasNext={nextPost}/>
-      <Comments postSlug={slug}/>
+      <Pagination slug={slug} hasPrev={prevPost} hasNext={nextPost} page={undefined}/>
+      <Suspense fallback={<p>Loading comments</p>}>
+        <Comments postSlug={slug}/>
+      </Suspense>
     </div>
   )
 }
 
-export default SinglePost
+export default SinglePost;

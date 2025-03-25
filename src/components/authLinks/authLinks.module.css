@@ -6,7 +6,6 @@
     padding: 8px 20px;
     background-color: var(--textColor);
     color: var(--background);
-    border-radius: 5px;
 }
 
 .write:hover {

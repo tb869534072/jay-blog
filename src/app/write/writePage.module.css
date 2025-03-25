@@ -1,6 +1,12 @@
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
 .title {
     width: 100%;
-    padding: 50px 0;
+    padding: 30px 0;
     font-size: 64px;
     border: none;
     outline: none;
@@ -48,6 +54,17 @@
 .isVisible {
     opacity: 1;
     transform: translateX(0);
+}
+
+.fileContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    min-height: 24px;
+}
+
+.removeButton {
+    color: crimson;
 }
 
 .textArea {

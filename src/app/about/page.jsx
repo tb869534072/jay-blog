@@ -1,6 +1,11 @@
 import React from 'react';
 import styles from './aboutPage.module.css';
 
+export const metadata = {
+  title: "GamerBlog | About",
+  description: "About this blog.",
+}
+
 const AboutPage = () => {
   return (
     <div className={styles.container}>

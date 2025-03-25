@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import styles from './card.module.css';
 import { ThemeContext } from '@/context/ThemeContext';
-import useScrollFade from "@/utils/useScrollFade";
+import useScrollFade from "@/lib/useScrollFade";
 
 const Card = ({item}) => {
   const { theme } = useContext(ThemeContext);

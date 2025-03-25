@@ -32,6 +32,10 @@
 }
 
 @media screen and (max-width: 640px) {
+    .container {
+        margin-bottom: 50px;
+    }
+    
     .logo {
         left: 50%;
         transform: translateX(-50%);
