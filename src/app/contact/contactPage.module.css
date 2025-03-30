@@ -39,6 +39,15 @@
     outline: none;
 }
 
+.message::-webkit-scrollbar {
+    width: 6px;
+}
+  
+.message::-webkit-scrollbar-thumb {
+    background-color: var(--textColor);
+    border-radius: 10px;
+}
+
 .button {
     background-color: var(--textColor);
     color: var(--background);

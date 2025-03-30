@@ -51,8 +51,25 @@
     color: var(--softTextColor);
 }
 
+.textContainer h1, .description {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+    display: block;
+}
+
 @media screen and (max-width: 768px) {
     .textContainer h1 {
         font-size: 28px;
+    }
+}
+
+@media screen and (max-width: 640px) {
+    .imgContainer {
+        height: 250px;
+    }
+
+    .textContainer h1 {
+        font-size: 20px;
     }
 }

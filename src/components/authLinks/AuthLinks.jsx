@@ -1,12 +1,11 @@
 "use client";
 
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import styles from './authLinks.module.css';
 import Link from 'next/link';
 import { signOut, useSession } from 'next-auth/react';
 
-const AuthLinks = () => {
-  const [open, setOpen] = useState(false);
+const AuthLinks = ({open, setOpen}) => {
   const { status } = useSession();
 
   useEffect(() => {
@@ -66,4 +65,4 @@ const AuthLinks = () => {
   )
 }
 
-export default AuthLinks
+export default AuthLinks;

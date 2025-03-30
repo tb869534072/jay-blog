@@ -7,7 +7,7 @@
 .title {
     width: 100%;
     padding: 30px 0;
-    font-size: 64px;
+    font-size: 48px;
     border: none;
     outline: none;
     background-color: transparent;
@@ -21,7 +21,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    min-height: 40vh;
+    min-height: 42vh;
 }
 
 .buttons {
@@ -35,13 +35,12 @@
     width: 36px;
     height: 36px;
     border-radius: 50%;
-    background-color: transparent;
+    background-color: white;
     border: 1px solid var(--textColor);
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    background-color: white;
 }
 
 .addButton {
@@ -68,17 +67,37 @@
 }
 
 .textArea {
+    font-size: 20px;
     width: 100%;
     max-height: 400px;
     overflow-y: auto;
 }
 
+.textArea::-webkit-scrollbar {
+    width: 6px;
+}
+  
+.textArea::-webkit-scrollbar-thumb {
+    background-color: var(--textColor);
+    border-radius: 10px;
+}
+
 .publish {
     width: 150px;
     border: none;
-    padding: 17px;
+    padding: 16.5px;
     background-color: var(--textColor);
     color: var(--background);
     cursor: pointer;
     font-weight: bold;
+}
+
+.publish:disabled {
+    background-color: var(--softTextColor);
+    cursor: text;
+}
+@media screen and (max-width: 768px) {
+    .title {
+        font-size: 36px;
+    }
 }

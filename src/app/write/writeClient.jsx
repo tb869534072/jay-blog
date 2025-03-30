@@ -6,6 +6,7 @@ import styles from './writePage.module.css';
 import { useEditor, EditorContent } from "@tiptap/react";
 import StarterKit from "@tiptap/starter-kit";
 import Placeholder from "@tiptap/extension-placeholder";
+import Link from '@tiptap/extension-link';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { supabase } from '../../lib/supabase';
@@ -37,6 +38,11 @@ const WriteClient = () => {
         placeholder: "Tell your story...",
         emptyEditorClass: "is-editor-empty",
       }),
+      Link.configure({
+        openOnClick: false,
+        autolink: true,
+        linkOnPaste: true,
+      }),
     ],
     content: "",
     immediatelyRender: false,
@@ -56,37 +62,68 @@ const WriteClient = () => {
     }
   }
 
+  const handleAddLink = () => {
+    const url = prompt("Enter the external link:");
+    if (!url || !editor) return;
+  
+    const { state } = editor;
+    const { from, to, empty } = state.selection;
+  
+    if (empty) {
+      editor
+        .chain()
+        .focus()
+        .insertContent([
+          { type: 'text', text: ' ' },
+          {
+            type: 'text',
+            text: url,
+            marks: [
+              {
+                type: 'link',
+                attrs: { href: url },
+              },
+            ],
+          },
+          { type: 'text', text: ' ' },
+        ])
+        .run();
+    } else {
+      editor
+        .chain()
+        .focus()
+        .extendMarkRange('link')
+        .setLink({ href: url })
+        .run();
+    }
+  }
+
+  const decodeHtml = (html) => {
+    return html
+      .replace(/<p>(.*?)<\/p>/gi, (_, content) => content + "<br>")
+      .replace(/\n/g, "<br>")
+      .trim();
+  };
+
   const slugify = (string) => {
-    return Date.now() + string
+    const base = string
       .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
-  };
-
-  const cleanHtml = (html) => {
-    if (typeof window === "undefined") return html;
-  
-    const doc = new DOMParser().parseFromString(html, "text/html");
-    doc.body.querySelectorAll("p").forEach((p) => {
-      if (p.childNodes.length === 1 && p.childNodes[0].nodeType === 3) {
-        const textWithBreak = document.createTextNode(p.textContent + "\n");
-        p.replaceWith(textWithBreak);
-      }
-    });
-  
-    return doc.body.innerHTML.replace(/\n/g, "<br>").trim();
+    return `${base}-${Date.now()}`;
   };
 
   const handleSubmit = async() => {
     if (isSubmitting) return;
 
     const rawDescription = editor?.getHTML() || "";
-    const description = cleanHtml(rawDescription);
+    const description = decodeHtml(rawDescription);
 
     if (!title.trim() || !description.trim() || description === "<br>") {
       alert("Please fill in both the title and content before publish.");
+      setIsSubmitting(false);
       return;
     }
 
@@ -94,29 +131,39 @@ const WriteClient = () => {
     
     let mediaUrl = null;
 
-    if (file) {
-      const fileName = `${Date.now()}-${file.name}`;
-      const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
-      if (error) {
-        console.error("Upload error:", error.message);
-        setIsSubmitting(false);
-        return;
+    try {
+      if (file) {
+        const fileName = `${Date.now()}-${file.name}`;
+        const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
+        if (error) {
+          console.error("Upload error:", error.message);
+          setIsSubmitting(false);
+          return;
+        }
+        mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
       }
-      mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
+
+      const res = await fetch("/api/posts", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          title,
+          description,
+          img: mediaUrl,
+          slug: slugify(title),
+        }),
+      });
+    
+      if (!res.ok) {
+        throw new Error("Failed to publish post.");
+      }
+    
+      router.push("/");
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+      setIsSubmitting(false);
     }
-
-    await fetch("/api/posts", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        title,
-        description,
-        img: mediaUrl,
-        slug: slugify(title),
-      }),
-    });
-
-    router.push("/");
   };
 
   if (status === "loading") {
@@ -144,12 +191,10 @@ const WriteClient = () => {
             onChange={handleFileChange}
             style={{ display: "none" }}
           />
-          <button className={`${styles.addButton} ${open ? styles.isVisible : ""}`}>
-            <label htmlFor='image'>
-              <Image src='/image.svg' alt='image' width={24} height={24}/>
-            </label>
-          </button>
-          <button className={`${styles.addButton} ${open ? styles.isVisible : ""}`}>
+          <label htmlFor='image' className={`${styles.addButton} ${open ? styles.isVisible : ""}`}>
+            <Image src='/image.svg' alt='image' width={24} height={24}/>
+          </label>
+          <button className={`${styles.addButton} ${open ? styles.isVisible : ""}`} onClick={handleAddLink}>
             <Image src='/external.svg' alt='external' width={28} height={28}/>
           </button>
         </div>
@@ -164,7 +209,7 @@ const WriteClient = () => {
         {editorLoaded ? (
           <EditorContent 
             editor={editor} 
-            className={styles.textArea} 
+            className={styles.textArea}
           />
         ) : (
           <p>Loading editor...</p>
@@ -175,7 +220,7 @@ const WriteClient = () => {
         onClick={handleSubmit}
         disabled={isSubmitting}
       >
-        Publish
+        {isSubmitting ? "Publishing..." : "Publish"}
       </button>
     </div>
   )

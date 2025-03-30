@@ -15,16 +15,22 @@ const ContactClient = () => {
     e.preventDefault();
     setStatus("Sending...");
 
-    const res = await fetch("api/contact", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(formData),
-    });
-
-    if (res.ok) {
-      setStatus("Message sent successfully!");
-      setFormData({ name: "", email: "", message: ""});
-    } else {
+    try {
+      const res = await fetch("api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+  
+      if (res.ok) {
+        setStatus("Message sent successfully!");
+        setFormData({ name: "", email: "", message: ""});
+      } else {
+        setStatus("Error sending message. Please try again.");
+      }
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
       setStatus("Error sending message. Please try again.");
     }
   }

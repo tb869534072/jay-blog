@@ -32,14 +32,20 @@ const Comments = ({ postSlug }) => {
     if (isSubmitting) return;
     setIsSubmitting(true);
   
-    await fetch("/api/comments", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ description, postSlug }),
-    });
-
-    mutate();
-    location.reload();
+    try {
+      await fetch("/api/comments", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ description, postSlug }),
+      });
+  
+      mutate();
+      location.reload();
+    } catch (error) {
+      console.error(error);
+      alert("Something went wrong. Please try again.");
+      setIsSubmitting(false);
+    }
   };
 
   return (

@@ -52,6 +52,11 @@
 
 .content {
     font-size: 20px;
+    overflow-wrap: break-word;
+}
+
+.content a {
+    color: red;
 }
 
 .content p {

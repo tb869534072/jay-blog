@@ -12,6 +12,10 @@
     left: 80px;
 }
 
+.logo:hover {
+    text-decoration: none;
+}
+
 .links {
     display: flex;
     align-items: center;
@@ -36,11 +40,6 @@
         margin-bottom: 50px;
     }
     
-    .logo {
-        left: 50%;
-        transform: translateX(-50%);
-    }
-
     .link {
         display: none;
     }
