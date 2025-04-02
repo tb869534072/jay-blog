@@ -4,7 +4,7 @@ import Link from 'next/link';
 
 const Footer = () => {
   return (
-    <div className={styles.container}>
+    <footer className={styles.container}>
       <div className={styles.info}>
         <div className={styles.logo}>
           <h1 className={styles.logoText}>
@@ -21,8 +21,8 @@ const Footer = () => {
         <Link href="/about">About</Link>
         <Link href="/contact">Contact</Link>
       </div>
-    </div>
+    </footer>
   )
 }
 
-export default Footer
+export default Footer;

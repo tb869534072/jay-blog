@@ -107,12 +107,13 @@ const WriteClient = () => {
 
   const slugify = (string) => {
     const base = string
-      .toLowerCase()
       .trim()
       .replace(/[^\w\s-]/g, "")
       .replace(/[\s_-]+/g, "-")
       .replace(/^-+|-+$/g, "");
-    return `${base}-${Date.now()}`;
+
+    const shortId = Math.random().toString(36).substring(0, 6); 
+    return `${base}-${shortId}`;
   };
 
   const handleSubmit = async() => {
@@ -132,17 +133,6 @@ const WriteClient = () => {
     let mediaUrl = null;
 
     try {
-      if (file) {
-        const fileName = `${Date.now()}-${file.name}`;
-        const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
-        if (error) {
-          console.error("Upload error:", error.message);
-          setIsSubmitting(false);
-          return;
-        }
-        mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
-      }
-
       const res = await fetch("/api/posts", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -158,6 +148,17 @@ const WriteClient = () => {
         throw new Error("Failed to publish post.");
       }
     
+      if (file) {
+        const fileName = `${Date.now()}-${file.name}`;
+        const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
+        if (error) {
+          console.error("Upload error:", error.message);
+          setIsSubmitting(false);
+          return;
+        }
+        mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
+      }
+      
       router.push("/");
     } catch (error) {
       console.error(error);

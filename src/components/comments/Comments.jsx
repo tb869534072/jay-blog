@@ -110,4 +110,4 @@ const Comments = ({ postSlug }) => {
   )
 }
 
-export default Comments
+export default Comments;

@@ -4,6 +4,7 @@
     gap: 30px;
     box-shadow: 0 0 0 transparent;
     border-radius: 1%;
+    overflow: hidden;
     opacity: 0;
     transform: translateY(50px);
     transition: box-shadow 0.3s ease-out, opacity 0.8s ease-out, transform 0.8s ease-out;

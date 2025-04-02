@@ -1,12 +1,36 @@
 "use client";
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styles from './authLinks.module.css';
 import Link from 'next/link';
+import Image from 'next/image';
 import { signOut, useSession } from 'next-auth/react';
+import useClickOutside from '@/lib/clickOutside';
+
 
 const AuthLinks = ({open, setOpen}) => {
-  const { status } = useSession();
+  const { data: session, status } = useSession();
+  const [showMenu, setShowMenu] = useState(false);
+  const menuRef = useRef(null);
+  const firstname = session?.user?.name?.split(" ")[0] ?? "guest";
+
+  const handleAvatarClick = () => {
+    setShowMenu((prev) => !prev);
+  }
+
+  const handleBurgerClick = () => {
+    setOpen((prev) => !prev);
+  }
+
+  const closeMenu = () => {
+    setShowMenu(false)
+  }
+
+  const closeResponsive = () => {
+    setOpen(false);
+  }
+
+  useClickOutside(menuRef, closeMenu);
 
   useEffect(() => {
     if (open) {
@@ -20,26 +44,50 @@ const AuthLinks = ({open, setOpen}) => {
     const mediaQuery = window.matchMedia("(min-width: 641px)");
     const handleResize = () => {
       if (mediaQuery.matches) {
-        setOpen(false);
+        closeResponsive();
       }
     };
     mediaQuery.addEventListener("change", handleResize);
     return () => mediaQuery.removeEventListener("change", handleResize);
-  }, []);
-  
+  }, [setOpen]);
+
   return (
     <>
       {status !== "authenticated" ? (
-        <Link href="/login" className={styles.link}>Login</Link>
+        <Link href="/login" className={styles.login}>Login</Link>
       ) : (
         <>
-          <div className={`${styles.link} ${styles.signOut}`} onClick={signOut}>Logout</div>
-          <Link href="/write" className={styles.write}>Write</Link>
+        { session?.user && (
+          <div className={styles.userMenu} ref={menuRef}>
+            <Image
+              src={session.user.image || "/avatar.png"}
+              alt="avatar"
+              width={32}
+              height={32}
+              className={styles.avatar}
+              onClick={handleAvatarClick}
+              aria-expanded={showMenu}
+            />
+            { showMenu && (
+              <div className={styles.dropdown} role="menu">
+                <div className={styles.greeting}>Hi, <span>{firstname}</span></div>
+                <Link 
+                  href="/write" 
+                  className={styles.dropdownItem} 
+                  onClick={closeMenu}
+                >
+                  Write
+                </Link>
+                <div className={`${styles.dropdownItem} ${styles.logout}`} onClick={signOut}>Logout</div>
+            </div>
+            )}
+          </div>
+        )}
         </>
       )}
       <div 
         className={`${styles.burgerContainer} ${open ? styles.flipped : ""}`} 
-        onClick={()=>setOpen(!open)}
+        onClick={handleBurgerClick}
       >
         <div className={styles.burger}>
           <div className={styles.line}></div>
@@ -49,15 +97,15 @@ const AuthLinks = ({open, setOpen}) => {
         <div className={styles.closeMenu}>✖</div>
       </div>
       <div className={`${styles.responsiveMenu} ${open ? styles.open : ""}`}>
-        <Link href="/" onClick={()=>setOpen(false)}>Home</Link>
-        <Link href="/about" onClick={()=>setOpen(false)}>About</Link>
-        <Link href="/contact" onClick={()=>setOpen(false)}>Contact</Link>
+        <Link href="/" onClick={closeResponsive}>Home</Link>
+        <Link href="/about" onClick={closeResponsive}>About</Link>
+        <Link href="/contact" onClick={closeResponsive}>Contact</Link>
         {status !== "authenticated" ? (
-        <Link href="/login" onClick={()=>setOpen(false)}>Login</Link>
+        <Link href="/login" onClick={closeResponsive}>Login</Link>
         ) : (
         <>
-          <Link href="/write" onClick={()=>setOpen(false)}>Write</Link>
-          <div className={styles.signOut} onClick={signOut}>Logout</div>
+          <Link href="/write" onClick={closeResponsive}>Write</Link>
+          <div className={styles.burgerLogout} onClick={signOut}>Logout</div>
         </>
         )}
       </div>

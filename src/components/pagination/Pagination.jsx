@@ -7,29 +7,36 @@ import { useRouter } from 'next/navigation';
 const Pagination = ({ page, slug, hasPrev, hasNext }) => {
   const router = useRouter();
 
+  const handlePrev = () => {
+    if (!hasPrev) return;
+    if (slug) {
+      router.push(`/posts/${hasPrev.slug}`);
+    } else {
+      router.push(`?page=${page - 1}`);
+    }
+  };
+
+  const handleNext = () => {
+    if (!hasNext) return;
+    if (slug) {
+      router.push(`/posts/${hasNext.slug}`);
+    } else {
+      router.push(`?page=${page + 1}`);
+    }
+  };
+
   return (
     <div className={styles.container}>
-      <button 
-        className={styles.button}
+      <button className={styles.button}
         disabled={!hasPrev}
-        onClick={()=>
-          slug ? (
-            router.push(`/posts/${hasPrev.slug}`)
-          ): (
-            router.push(`?page=${page - 1}`)
-        )}
+        onClick={handlePrev}
       >
         Previous
       </button> 
       <button 
         className={styles.button}
         disabled={!hasNext}
-        onClick={()=>
-          slug ? (
-            router.push(`/posts/${hasNext.slug}`)
-          ): (
-            router.push(`?page=${page + 1}`)
-        )}
+        onClick={handleNext}
       >
         Next
       </button>      
@@ -37,4 +44,4 @@ const Pagination = ({ page, slug, hasPrev, hasNext }) => {
   )
 }
 
-export default Pagination
+export default Pagination;

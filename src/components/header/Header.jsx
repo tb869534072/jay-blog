@@ -3,7 +3,7 @@ import styles from './header.module.css'
 
 const Header = () => {
   return (
-    <div className={styles.container}>
+    <header className={styles.container}>
       <h1 className={styles.title}>
         <b>GamerBlog</b>
         <p>
@@ -14,8 +14,8 @@ const Header = () => {
           <span className={styles.game}> game</span>.
         </p>
       </h1>
-    </div>
+    </header>
   )
 }
 
-export default Header
+export default Header;

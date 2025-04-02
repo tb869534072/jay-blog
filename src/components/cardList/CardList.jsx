@@ -34,4 +34,4 @@ const CardList = async({ page }) => {
   )
 }
 
-export default CardList
+export default CardList;

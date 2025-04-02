@@ -26,7 +26,7 @@ const LoginClient = () => {
         <div className={styles.socialButton} onClick={() => signIn("google")}>Sign in with Google
           <Image src='/google.svg' alt='google' width={20} height={20}/>
         </div>
-        <div className={styles.socialButton}>Sign in with Github
+        <div className={styles.socialButton} onClick={() => signIn("github")}>Sign in with Github
           <Image src='/github.svg' alt='github' width={20} height={20}/>
         </div>
       </div>
