@@ -2,7 +2,6 @@ import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
   images: {
-    domains: ['avatars.githubusercontent.com'],
     remotePatterns: [
       {
         protocol: "https",
@@ -12,6 +11,10 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cifufmgtjgcjvzxfekaa.supabase.co",
         pathname: "/storage/v1/object/public/blog-files/**",
+      },
+      {
+        protocol: "https",
+        hostname: "avatars.githubusercontent.com",
       },
     ],
   },
