@@ -29,3 +29,23 @@ export const GET = async (req, props) => {
       return new NextResponse(JSON.stringify({ message: "Something went wrong"}), { status: 500 });
     }
 }
+
+export const POST = async (req, { params }) => {
+    try {
+    const { slug } = params;
+    
+    await prisma.post.update({
+      where: { slug },
+      data: {
+        views: {
+          increment: 1,
+        },
+      },
+    });
+
+    return new Response(JSON.stringify({ success: true }), { status: 200 });
+  } catch (error) {
+    console.error("Error incrementing view count:", error);
+    return new Response(JSON.stringify({ success: false }), { status: 500 });
+  }
+}

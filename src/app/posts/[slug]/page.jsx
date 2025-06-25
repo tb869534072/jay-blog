@@ -3,6 +3,7 @@ import styles from './singlePost.module.css';
 import Image from 'next/image';
 import Pagination from "@/components/pagination/Pagination";
 import Comments from "@/components/comments/Comments";
+import ViewTracker from "@/components/viewTracker/ViewTracker";
 import { getPostData } from "@/lib/posts";
 import { notFound } from 'next/navigation';
 
@@ -27,6 +28,7 @@ const SinglePost = async (props) => {
 
   return (
     <div className={styles.container}>
+      <ViewTracker slug={slug} />
       <div className={styles.postContainer}>
         <div className={styles.titleContainer}>
           <h1 className={styles.title}>{post.title}</h1>

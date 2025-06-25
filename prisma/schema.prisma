@@ -80,6 +80,7 @@ model Post {
   userEmail   String
   user        User      @relation(fields: [userEmail], references: [email])
   comments    Comment[]
+  views       Int       @default(0)
 }
 
 model Comment {
