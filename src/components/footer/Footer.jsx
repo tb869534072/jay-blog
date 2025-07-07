@@ -8,7 +8,7 @@ const Footer = () => {
       <div className={styles.info}>
         <div className={styles.logo}>
           <h1 className={styles.logoText}>
-            GamerBlog
+            JayPlays
           </h1>
         </div>
         <p className={styles.description}>

@@ -1,18 +1,28 @@
+.link {
+    cursor: default;
+    pointer-events: none;
+}
+
+.link:hover {
+    text-decoration: none;
+}
+
 .container {
     display: flex;
     flex-direction: column;
     gap: 30px;
     box-shadow: 0 0 0 transparent;
-    border-radius: 1%;
+    border-radius: 2%;
     overflow: hidden;
     opacity: 0;
     transform: translateY(50px);
     transition: box-shadow 0.3s ease-out, opacity 0.8s ease-out, transform 0.8s ease-out;
+    cursor: pointer;
+    pointer-events: auto;
 }
 
 .container:hover {
-    text-decoration: none;
-    box-shadow: 0 0 5px var(--softTextColor);
+    box-shadow: 0 0 8px var(--softTextColor);
 }
 
 .visible {
@@ -33,7 +43,7 @@
     display: flex;
     flex-direction: column;
     gap: 20px;
-    padding: 0 20px 20px 20px;
+    padding: 0 20px 40px;
 }
 
 .date {

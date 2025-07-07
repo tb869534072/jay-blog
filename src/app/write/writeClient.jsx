@@ -130,7 +130,13 @@ const WriteClient = () => {
 
     setIsSubmitting(true);
     
+    let fileName = null;
     let mediaUrl = null;
+    if (file) {
+      const shortId = Math.random().toString(36).substring(0, 6); 
+      fileName = `${shortId}-${file.name}`;
+      mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
+    }
 
     try {
       const res = await fetch("/api/posts", {
@@ -149,14 +155,12 @@ const WriteClient = () => {
       }
     
       if (file) {
-        const fileName = `${Date.now()}-${file.name}`;
         const { data, error } = await supabase.storage.from("blog-files").upload(fileName, file);
         if (error) {
           console.error("Upload error:", error.message);
           setIsSubmitting(false);
           return;
         }
-        mediaUrl = `https://cifufmgtjgcjvzxfekaa.supabase.co/storage/v1/object/public/blog-files/${fileName}`.replace(/([^:]\/)\/+/g, "$1");
       }
       
       router.push("/");

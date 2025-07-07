@@ -11,7 +11,7 @@ const Navbar = () => {
 
   return (
     <nav className={styles.container}>
-      <Link href='/' className={styles.logo} onClick={()=>setOpen(false)}>GamerBlog</Link>
+      <Link href='/' className={styles.logo} onClick={()=>setOpen(false)}>JayPlays</Link>
       <div className={styles.links}>
         <ThemeToggle/>
         <Link href='/' className={styles.link}>Home</Link>

@@ -14,15 +14,17 @@ const Card = ({item}) => {
   const getFirstSentence = (text) => {
     if (!text) return "";
     const match = text.match(/^(.*?)([.!?]<br>?|\n|<br>)/i);
-    return match ? match[0].trim() : text;
+    const res = match ? match[0].trim() : text;
+    return res.length > 70 ? res.slice(0, 61) + "..." : res;
   };
 
   return (
     <Link 
-      href={`/posts/${item.slug}`} 
-      className={`${styles.container} ${isVisible ? styles.visible : ""}`}
+      href={`/posts/${item.slug}`}
+      className={styles.link} 
       ref={ref}
     >
+      <div className={`${styles.container} ${isVisible ? styles.visible : ""}`}>
       <div className={styles.imgContainer}>
         {item.img ? (
           <Image 
@@ -64,6 +66,7 @@ const Card = ({item}) => {
             dangerouslySetInnerHTML={{ __html: getFirstSentence(item.description)}}>
           </p>
         </div>
+      </div>
       </div>
     </Link>
   )
