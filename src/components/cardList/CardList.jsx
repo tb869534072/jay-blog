@@ -2,9 +2,10 @@ import React from 'react'
 import styles from './cardList.module.css'
 import Card from "@/components/card/Card";
 import Pagination from "@/components/pagination/Pagination";
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 const getData = async(page) => {
-  const res = await fetch(`http://localhost:3000/api/posts?page=${page}`, {
+  const res = await fetch(`${getBaseUrl()}/api/posts?page=${page}`, {
     cache: 'no-store',
   });
 

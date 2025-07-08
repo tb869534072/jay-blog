@@ -6,6 +6,7 @@ import Image from 'next/image';
 import styles from './comments.module.css';
 import useSWR from 'swr';
 import { useSession } from 'next-auth/react';
+import { getBaseUrl } from '@/lib/getBaseUrl';
 
 const fetcher = async(url) => {
   const res = await fetch(url);
@@ -20,7 +21,7 @@ const Comments = ({ postSlug }) => {
   const { status } = useSession();
 
   const { data, isLoading, mutate } = useSWR(
-    `http://localhost:3000/api/comments?postSlug=${postSlug}`,
+    `${getBaseUrl()}/api/comments?postSlug=${postSlug}`,
     fetcher
   );
 
